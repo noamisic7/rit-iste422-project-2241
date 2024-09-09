@@ -25,3 +25,6 @@ if [ $? -ne 0 ]; then echo "TESTS FAILED!"; exit 1; fi
 echo "Running application..."
 # Run the main class of your application
 java -cp build RunEdgeConvert
+
+
+
