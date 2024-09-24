@@ -1,0 +1,28 @@
+SRC_DIR = src/main/java
+TEST_DIR = src/test/java
+BIN_DIR = bin
+LIB_DIR = lib
+
+CLASSPATH = $(BIN_DIR):$(LIB_DIR)/*
+
+JAVAC = javac
+JAVA = java
+JAVAC_FLAGS = -d $(BIN_DIR) -cp $(CLASSPATH)
+
+SRC_FILES = $(wildcard $(SRC_DIR)/*.java)
+TEST_FILES = $(wildcard $(TEST_DIR)/*.java)
+
+all: compile
+
+compile:
+	@mkdir -p $(BIN_DIR)
+	$(JAVAC) $(JAVAC_FLAGS) $(SRC_FILES)
+
+test: compile
+	$(JAVAC) $(JAVAC_FLAGS) $(TEST_FILES)
+	$(JAVA) -cp $(CLASSPATH) org.junit.runner.JUnitCore $(subst .java,, $(notdir $(TEST_FILES)))
+
+clean:
+	rm -rf $(BIN_DIR)/*
+
+.PHONY: all compile test clean
